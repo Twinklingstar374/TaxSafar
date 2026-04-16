@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #eff6ff;
+  --color-secondary: #0ea5e9;
+  --color-accent: #6366f1;
+  
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  /* Premium Shadows */
+  --shadow-premium-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.02), 0 3px 8px 0 rgba(0, 0, 0, 0.04);
+  --shadow-premium-md: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+  --shadow-premium-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04), 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #020617;
+  --card-bg: #f8fafc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #020617;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-premium-md);
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-bg-soft {
+  background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.03), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.03), transparent 40%);
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-premium-lg);
+  border-color: rgba(37, 99, 235, 0.1);
+}
+
+
