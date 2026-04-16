@@ -30,11 +30,12 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-slate-900/80"></div>
         
         <div className="relative z-10 w-full h-full flex flex-col p-16 justify-between text-white">
-          <Link href="/" className="flex items-center space-x-2 group">
-             <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:rotate-12">
-               <span className="text-primary font-bold text-2xl">T</span>
-             </div>
-             <span className="text-3xl font-bold tracking-tight">Tax<span className="text-blue-200">Safar</span></span>
+          <Link href="/" className="flex items-center space-x-2 group h-12 w-auto">
+            <img 
+              src="/original_logo.png" 
+              alt="TaxSafar Logo" 
+              className="h-full w-auto object-contain drop-shadow-2xl brightness-0 invert"
+            />
           </Link>
 
           <div>

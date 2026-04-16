@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
+import { services } from "../data/services";
 
 interface NavbarProps {
   onRequestCall: () => void;
@@ -12,6 +13,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onRequestCall }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,13 +23,6 @@ const Navbar: React.FC<NavbarProps> = ({ onRequestCall }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/#services" },
-    { name: "About Us", href: "/#about" },
-    { name: "Contact", href: "/#contact" },
-  ];
 
   return (
     <nav
@@ -46,18 +42,81 @@ const Navbar: React.FC<NavbarProps> = ({ onRequestCall }) => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium hover:text-primary transition-colors relative group ${
+            <Link
+              href="/"
+              className={`text-sm font-medium hover:text-primary transition-colors relative group ${
+                  isScrolled ? "text-slate-600" : "text-slate-700"
+              }`}
+            >
+              Home
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+
+            {/* Services Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setDesktopServicesOpen(true)}
+              onMouseLeave={() => setDesktopServicesOpen(false)}
+            >
+              <button
+                className={`flex items-center text-sm font-medium hover:text-primary transition-colors relative group pt-2 pb-2 ${
                     isScrolled ? "text-slate-600" : "text-slate-700"
                 }`}
               >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            ))}
+                <span>Services</span>
+                <ChevronDown size={14} className="ml-1" />
+                <span className="absolute bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              </button>
+
+              <AnimatePresence>
+                {desktopServicesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-10 -left-1/2 w-[600px] bg-white rounded-2xl shadow-xl shadow-slate-900/10 border border-slate-100 overflow-hidden grid grid-cols-2 p-4 gap-2"
+                  >
+                    {services.map((service, idx) => (
+                       <Link
+                         key={idx}
+                         href={`/services/${service.slug}`}
+                         className="flex items-start p-3 hover:bg-slate-50 rounded-xl transition-colors group"
+                         onClick={() => setDesktopServicesOpen(false)}
+                       >
+                         <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
+                            <service.icon size={20} />
+                         </div>
+                         <div className="ml-4">
+                            <p className="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors">{service.title}</p>
+                            <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">{service.description}</p>
+                         </div>
+                       </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link
+              href="/about"
+              className={`text-sm font-medium hover:text-primary transition-colors relative group ${
+                  isScrolled ? "text-slate-600" : "text-slate-700"
+              }`}
+            >
+              About Us
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+
+            <Link
+              href="/contact"
+              className={`text-sm font-medium hover:text-primary transition-colors relative group ${
+                  isScrolled ? "text-slate-600" : "text-slate-700"
+              }`}
+            >
+              Contact
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </Link>
             
             <div className="flex items-center space-x-4 border-l border-slate-200 pl-8 ml-2">
               <Link
@@ -126,23 +185,64 @@ const Navbar: React.FC<NavbarProps> = ({ onRequestCall }) => {
               </div>
 
               <div className="flex-1 overflow-y-auto px-6 py-8">
-                <nav className="space-y-6">
-                  {navLinks.map((link, idx) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + idx * 0.05 }}
+                <nav className="space-y-4">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-xl font-bold text-slate-900 hover:text-primary transition-colors"
+                  >
+                    Home
+                  </Link>
+
+                  {/* Mobile Services Accordion */}
+                  <div>
+                    <button 
+                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                      className="flex items-center justify-between w-full text-xl font-bold text-slate-900 hover:text-primary transition-colors"
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-xl font-bold text-slate-900 hover:text-primary transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
-                  ))}
+                      <span>Services</span>
+                      <ChevronDown size={20} className={`transform transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    <AnimatePresence>
+                      {mobileServicesOpen && (
+                        <motion.div 
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-4 pb-2 space-y-3 pl-4 border-l border-slate-100 ml-2 mt-2">
+                             {services.map((svc, idx) => (
+                               <Link
+                                 key={idx}
+                                 href={`/services/${svc.slug}`}
+                                 onClick={() => setIsMobileMenuOpen(false)}
+                                 className="block font-semibold text-slate-600 hover:text-primary"
+                               >
+                                 {svc.title}
+                               </Link>
+                             ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <Link
+                    href="/about"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-xl font-bold text-slate-900 hover:text-primary transition-colors"
+                  >
+                    About Us
+                  </Link>
+
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-xl font-bold text-slate-900 hover:text-primary transition-colors"
+                  >
+                    Contact
+                  </Link>
                 </nav>
 
                 <div className="mt-12 space-y-4">
@@ -193,8 +293,6 @@ const Navbar: React.FC<NavbarProps> = ({ onRequestCall }) => {
         )}
       </AnimatePresence>
     </nav>
-
-
   );
 };
 

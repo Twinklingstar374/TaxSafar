@@ -43,22 +43,22 @@ const Footer = () => {
 
   const footerLinks = {
     company: [
-      { name: "About Us", href: "/#about" },
-      { name: "Services", href: "/#services" },
+      { name: "About Us", href: "/about" },
+      { name: "Services", href: "#" },
       { name: "Expert Portal", href: "/partner-login" },
       { name: "Careers", href: "#" },
     ],
     services: [
-      { name: "GST Filing", href: "#" },
-      { name: "Income Tax", href: "#" },
-      { name: "Registrations", href: "#" },
-      { name: "Accounting", href: "#" },
+      { name: "GST Filing", href: "/services/return-filing" },
+      { name: "Income Tax", href: "/services/return-filing" },
+      { name: "Registrations", href: "/services/registrations" },
+      { name: "Accounting", href: "/services/accounting" },
     ],
     support: [
       { name: "Help Center", href: "#" },
       { name: "Privacy Policy", href: "#" },
       { name: "Terms of Service", href: "#" },
-      { name: "Contact Us", href: "#contact" },
+      { name: "Contact Us", href: "/contact" },
     ],
   };
 
@@ -68,11 +68,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
           {/* Brand Column */}
           <div className="lg:col-span-4 space-y-8">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-white shadow-xl rounded-xl flex items-center justify-center border border-slate-100 transition-transform group-hover:rotate-12">
-                <span className="text-primary font-bold text-xl">T</span>
-              </div>
-              <span className="text-2xl font-black tracking-tight text-slate-900">Tax<span className="text-primary">Safar</span></span>
+            <Link href="/" className="flex items-center space-x-2 group h-12 w-auto">
+              <img 
+                src="/original_logo.png" 
+                alt="TaxSafar Logo" 
+                className="h-full w-auto object-contain"
+              />
             </Link>
             <p className="text-slate-500 font-medium leading-relaxed max-w-sm">
               India's premier digital cockpit for tax compliance and financial growth. Empowering 50k+ clients with expert-led tax solutions.

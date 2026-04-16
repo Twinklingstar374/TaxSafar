@@ -52,11 +52,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         className="bg-white text-slate-600 flex-shrink-0 relative z-30 hidden lg:flex flex-col border-r border-slate-200 shadow-sm overflow-hidden"
       >
         <div className="p-8">
-           <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-md transition-transform group-hover:rotate-12">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <span className="text-2xl font-bold tracking-tight text-slate-900">Tax<span className="text-primary">Safar</span></span>
+           <Link href="/" className="flex items-center space-x-2 group h-10 w-auto">
+             <img 
+               src="/original_logo.png" 
+               alt="TaxSafar Logo" 
+               className="h-full w-auto object-contain"
+             />
            </Link>
         </div>
 
@@ -154,11 +155,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className="fixed top-0 left-0 bottom-0 w-[280px] bg-white text-slate-600 z-50 lg:hidden flex flex-col border-r border-slate-200 shadow-xl"
             >
               <div className="p-8 flex justify-between items-center">
-                 <Link href="/" className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                      <span className="text-white font-bold text-xl">T</span>
-                    </div>
-                    <span className="text-2xl font-bold tracking-tight text-slate-900">TaxSafar</span>
+                 <Link href="/" className="flex items-center space-x-2 h-10 w-auto">
+                   <img 
+                     src="/original_logo.png" 
+                     alt="TaxSafar Logo" 
+                     className="h-full w-auto object-contain"
+                   />
                  </Link>
                  <button onClick={() => setIsSidebarOpen(false)} className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-500">
                     <X size={24} />
