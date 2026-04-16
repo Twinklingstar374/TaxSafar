@@ -9,14 +9,23 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
-  LayoutDashboard
+  LayoutDashboard,
+  LucideIcon
 } from "lucide-react";
 
+type StatItem = {
+  label: string;
+  value: string;
+  icon: LucideIcon;
+  color: string;
+  trend: string;
+};
+
 export default function DashboardOverview() {
-  const stats = [
-    { label: "Active Filings", value: "3", icon: <Clock className="text-blue-500" />, trend: "+1 this month" },
-    { label: "Completed", value: "12", icon: <CheckCircle2 className="text-green-500" />, trend: "98% accuracy" },
-    { label: "Pending Actions", value: "2", icon: <AlertCircle className="text-amber-500" />, trend: "Urgent" },
+  const stats: StatItem[] = [
+    { label: "Active Filings", value: "3", icon: Clock, color: "text-blue-500", trend: "+1 this month" },
+    { label: "Completed", value: "12", icon: CheckCircle2, color: "text-green-500", trend: "98% accuracy" },
+    { label: "Pending Actions", value: "2", icon: AlertCircle, color: "text-amber-500", trend: "Urgent" },
   ];
 
   const recentActivity = [
@@ -48,21 +57,24 @@ export default function DashboardOverview() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-         {stats.map((stat, idx) => (
-           <div 
-             key={idx}
-             className="bg-white p-6 md:p-8 rounded-[1.5rem] border border-slate-200 shadow-sm hover:shadow-md transition-all group"
-           >
-              <div className="flex justify-between items-start mb-6">
-                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 group-hover:border-primary/20 transition-colors">
-                    {React.cloneElement(stat.icon as React.ReactElement, { size: 24, strokeWidth: 2.5 })}
-                 </div>
-                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.trend}</span>
-              </div>
-              <p className="text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">{stat.label}</p>
-              <h3 className="text-3xl font-black text-slate-900">{stat.value}</h3>
-           </div>
-         ))}
+         {stats.map((stat, idx) => {
+           const Icon = stat.icon;
+           return (
+             <div 
+               key={idx}
+               className="bg-white p-6 md:p-8 rounded-[1.5rem] border border-slate-200 shadow-sm hover:shadow-md transition-all group"
+             >
+                <div className="flex justify-between items-start mb-6">
+                   <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 group-hover:border-primary/20 transition-colors">
+                      <Icon size={24} strokeWidth={2.5} className={stat.color} />
+                   </div>
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.trend}</span>
+                </div>
+                <p className="text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">{stat.label}</p>
+                <h3 className="text-3xl font-black text-slate-900">{stat.value}</h3>
+             </div>
+           );
+         })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
