@@ -22,7 +22,7 @@ const AboutUs = () => {
 
   React.useEffect(() => {
     if (isInView && videoRef.current) {
-      videoRef.current.play().catch(err => console.log("Video play interrupted:", err));
+      videoRef.current.play().catch(err => {});
     } else if (videoRef.current) {
       videoRef.current.pause();
     }

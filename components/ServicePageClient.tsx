@@ -4,22 +4,20 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RequestCallModal from "@/components/RequestCallModal";
-import { services } from "@/data/services";
-import { notFound } from "next/navigation";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
+interface ServicePageClientProps {
+  service: {
+    title: string;
+    description: string;
+    icon: any;
+  };
+}
+
+export default function ServicePageClient({ service }: ServicePageClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Find the requested service
-  const service = services.find(s => s.slug === params.slug);
-
-  if (!service) {
-    notFound();
-  }
-
   const Icon = service.icon;
 
   const benefits = [
@@ -99,7 +97,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
               </div>
               
-              {/* Decorative background shapes */}
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlNWFlN2UiIGZpbGwtb3BhY2l0eT0iMC40Ii8+PC9zdmc+')] opacity-50 z-0 rounded-full"></div>
             </motion.div>
           </div>
